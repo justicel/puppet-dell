@@ -1,0 +1,16 @@
+{
+  "name": "puppet-dell",
+  "version": "0.1.0",
+  "author": "jgazeley",
+  "summary": "Install Dell OpenManage",
+  "license": "Apache 2.0",
+  "source": "https://github.com/djjudas21/puppet-dell.git",
+  "project_page": "https://github.com/djjudas21/puppet-dell",
+  "issues_url": "https://github.com/djjudas21/puppet-dell/issues",
+  "dependencies": [
+    {
+      "name": "puppetlabs-stdlib",
+      "version_range": ">= 1.0.0"
+    }
+  ]
+}

@@ -16,6 +16,3 @@ task :validate do
     sh "erb -P -x -T '-' #{template} | ruby -c"
   end
 end
-
-PuppetLint.configuration.send('disable_class_parameter_defaults')
-task :default => [:spec, :lint, :validate]
