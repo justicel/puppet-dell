@@ -1,79 +1,55 @@
-# dell
+# Dell
 
 #### Table of Contents
 
 1. [Overview](#overview)
 2. [Module Description - What the module does and why it is useful](#module-description)
-3. [Setup - The basics of getting started with dell](#setup)
-    * [What dell affects](#what-dell-affects)
-    * [Setup requirements](#setup-requirements)
-    * [Beginning with dell](#beginning-with-dell)
-4. [Usage - Configuration options and additional functionality](#usage)
-5. [Reference - An under-the-hood peek at what the module is doing and how](#reference)
-5. [Limitations - OS compatibility, etc.](#limitations)
-6. [Development - Guide for contributing to the module](#development)
+3. [Usage - Configuration options and additional functionality](#usage)
+4. [Limitations - OS compatibility, etc.](#limitations)
+5. [Development - Guide for contributing to the module](#development)
 
 ## Overview
 
-A one-maybe-two sentence summary of what the module does/what problem it solves.
-This is your 30 second elevator pitch for your module. Consider including
-OS/Puppet version it works with.
+This module installs Dell OpenManage on Linux servers
 
 ## Module Description
 
-If applicable, this section should have a brief description of the technology
-the module integrates with and what that integration enables. This section
-should answer the questions: "What does this module *do*?" and "Why would I use
-it?"
-
-If your module has a range of functionality (installation, configuration,
-management, etc.) this is the time to mention it.
-
-## Setup
-
-### What dell affects
-
-* A list of files, packages, services, or operations that the module will alter,
-  impact, or execute on the system it's installed on.
-* This is a great place to stick any warnings.
-* Can be in list or paragraph form.
-
-### Setup Requirements **OPTIONAL**
-
-If your module requires anything extra before setting up (pluginsync enabled,
-etc.), mention it here.
-
-### Beginning with dell
-
-The very basic steps needed for a user to get the module up and running.
-
-If your most recent release breaks compatibility or requires particular steps
-for upgrading, you may wish to include an additional section here: Upgrading
-(For an example, see http://forge.puppetlabs.com/puppetlabs/firewall).
+This module installs Dell OpenManage on Linux servers. It basically automates the
+manual instructions provided by Dell.
 
 ## Usage
 
 Put the classes, types, and resources for customizing, configuring, and doing
 the fancy stuff with your module here.
 
-## Reference
+This module takes no parameters. Currently it does not self-limit so be sure to
+check that you are installing it only on Dell systems, e.g. using the following
+syntax in your manifest.
 
-Here, list the classes, types, providers, facts, etc contained in your module.
-This section should include all of the under-the-hood workings of your module so
-people know what the module is touching on their system but don't need to mess
-with things. (We are working on automating this section!)
+```
+ if $manufacturer == 'Dell Inc.' {
+    include dell
+  }
+```
+
+This module also provides an optional class which provides Nagios checks that
+interrogate Dell OpenManage. Some of these parameters are hard-coded and may not
+work in your environment. This section needs improvement - if you are having trouble
+using these Nagios checks then please open an issue and I'll bump it up my
+priorities.
+
+```
+ if $manufacturer == 'Dell Inc.' {
+    include dell::openmanage::nagios
+  }
+```
 
 ## Limitations
 
-This is where you list OS compatibility, version compatibility, etc.
+This module supports both Red Hat-compatible distros and Debian-compatible
+distros.
 
 ## Development
 
-Since your module is awesome, other users will want to play with it. Let them
-know what the ground rules for contributing are.
-
-## Release Notes/Contributors/Etc **Optional**
-
-If you aren't using changelog, put your release notes here (though you should
-consider using changelog). You may also add any additional sections you feel are
-necessary or important to include here. Please use the `## ` header.
+This module is forked from `camptocamp/puppet-dell` for the purposes of improvement
+and publication on Puppet Forge. Feel free to send pull requests etc.
