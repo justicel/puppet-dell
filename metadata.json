@@ -1,5 +1,5 @@
 {
-  "name": "puppet-dell",
+  "name": "jgazeley/dell",
   "version": "0.1.0",
   "author": "jgazeley",
   "summary": "Install Dell OpenManage",
