@@ -19,9 +19,6 @@ manual instructions provided by Dell.
 
 ## Usage
 
-Put the classes, types, and resources for customizing, configuring, and doing
-the fancy stuff with your module here.
-
 This module takes no parameters. Currently it does not self-limit so be sure to
 check that you are installing it only on Dell systems, e.g. using the following
 syntax in your manifest.
