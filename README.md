@@ -23,7 +23,7 @@ This module takes no parameters. Currently it does not self-limit so be sure to
 check that you are installing it only on Dell systems, e.g. using the following
 syntax in your manifest.
 
-```
+```puppet
  if $manufacturer == 'Dell Inc.' {
     include dell
   }
@@ -35,7 +35,7 @@ work in your environment. This section needs improvement - if you are having tro
 using these Nagios checks then please open an issue and I'll bump it up my
 priorities.
 
-```
+```puppet
  if $manufacturer == 'Dell Inc.' {
     include dell::openmanage::nagios
   }
