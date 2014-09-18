@@ -1,51 +1,51 @@
 # Based on https://github.com/kwolf/dell_info/blob/master/lib/facter/dell_info.rb
 
-begin
-  require 'facter/util/warranty'
-  rescue LoadError => e
-  # puppet apply does not add module lib directories to the $LOAD_PATH (See
-  # #4248). It should (in the future) but for the time being we need to be
-  # defensive which is what this rescue block is doing.
-  rb_file = File.join(File.dirname(__FILE__), 'util', 'warranty.rb')
-  load rb_file if File.exists?(rb_file) or raise e
-end
+#begin
+#  require 'facter/util/warranty'
+#  rescue LoadError => e
+#  # puppet apply does not add module lib directories to the $LOAD_PATH (See
+#  # #4248). It should (in the future) but for the time being we need to be
+#  # defensive which is what this rescue block is doing.
+#  rb_file = File.join(File.dirname(__FILE__), 'util', 'warranty.rb')
+#  load rb_file if File.exists?(rb_file) or raise e
+#end
 
-Facter.add(:is_dell_machine) do
-  confine :kernel => :linux
-  confine :is_virtual => :false
+#Facter.add(:is_dell_machine) do
+#  confine :kernel => :linux
+#  confine :is_virtual => :false
+#
+#  setcode { !!(Facter.value(:serialnumber) && Facter.value(:manufacturer) =~ /dell/i) }
+#end
 
-  setcode { !!(Facter.value(:serialnumber) && Facter.value(:manufacturer) =~ /dell/i) }
-end
+#Facter.add(:warranty_start) do
+#  confine :is_dell_machine => true
+#
+#  setcode { Facter::Util::Warranty.purchase_date.to_s }
+#end
 
-Facter.add(:warranty_start) do
-  confine :is_dell_machine => true
+#Facter.add(:warranty_end) do
+#  confine :is_dell_machine => true
+#
+#  setcode do
+#    enddate = Date.parse(Time.at(0).to_s)
+#    Facter::Util::Warranty.warranties.each do |warranty|
+#      if Date.parse(warranty['EndDate']) > enddate
+#        enddate = Date.parse(warranty['EndDate'])
+#      end
+#    end
+#    enddate.to_s
+#  end
+#end
 
-  setcode { Facter::Util::Warranty.purchase_date.to_s }
-end
-
-Facter.add(:warranty_end) do
-  confine :is_dell_machine => true
-
-  setcode do
-    enddate = Date.parse(Time.at(0).to_s)
-    Facter::Util::Warranty.warranties.each do |warranty|
-      if Date.parse(warranty['EndDate']) > enddate
-        enddate = Date.parse(warranty['EndDate'])
-      end
-    end
-    enddate.to_s
-  end
-end
-
-Facter.add(:warranty_days_left) do
-  confine :is_dell_machine => true
-
-  setcode do
-    today = Date.parse(Time.now.to_s)
-    enddate = Date.parse(Facter.value(:warranty_end))
-    (enddate - today).to_i
-  end
-end
+#Facter.add(:warranty_days_left) do
+#  confine :is_dell_machine => true
+#
+#  setcode do
+#    today = Date.parse(Time.now.to_s)
+#    enddate = Date.parse(Facter.value(:warranty_end))
+#    (enddate - today).to_i
+#  end
+#end
 
 # We don't need all these facts for now
 # but they're coded (and they work)
