@@ -63,7 +63,7 @@ class dell::hwtools {
         ensure => absent,
       }
     }
-    default : { error("Unsupported operating system by Class['dell::hwtools']")
+    default : { error("Unsupported operating system by Class['dell::hwtools']") }
   }
 
 }
