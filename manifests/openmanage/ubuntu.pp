@@ -1,21 +1,22 @@
 #
-# == Class: dell::openmanage::debian
+# == Class: dell::openmanage::ubuntu
 #
-# Install openmanage tools on Debian
+# Install openmanage tools on Ubuntu
 #
-class dell::openmanage::debian {
+class dell::openmanage::ubuntu {
 
   if (!defined(Class['dell'])) {
     fail 'You need to declare class dell'
   }
 
   # key of:
-  # http://linux.dell.com/repo/community/deb/OMSA_7.0/ (same for 7.1)
-  # necessary for 6.5
+  # http://linux.dell.com/repo/community/ubuntu
+  # necessary for 6.5+
   $key_34D8786F = $dell::omsa_version ? {
     'OMSA_6.5' => 'present',
     'OMSA_7.0' => 'present',
     'OMSA_7.1' => 'present',
+    'OMSA_7.4' => 'present',
     'latest'   => 'present',
     ''         => 'present',
     default    => 'absent',
@@ -172,44 +173,26 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
   }
 
   $omsa_pkg_name = $::lsbdistcodename ? {
-    'lenny'   => 'dellomsa',
-    'squeeze' => [ 'srvadmin-base', 'srvadmin-storageservices' ],
+    'lucid'   => [ 'srvadmin-base', 'srvadmin-storageservices' ],
     default   => [
       'srvadmin-base',
       'srvadmin-storageservices',
-      'srvadmin-omcommon' ],
+      'srvadmin-omcommon'
+    ],
   }
 
-  case $::lsbdistcodename {
-    'lenny': {
-      apt::source{'dell':
-        location    => 'ftp://ftp.sara.nl/pub/sara-omsa',
-        release     => 'dell6',
-        repos       => 'sara',
-        include_src => false,
-      }
-    }
-    'squeeze': {
-      apt::source{'dell':
-        location    => "${dell::omsa_url_base}${dell::omsa_version}",
-        release     => '/',
-        repos       => '',
-        include_src => false,
-      }
-    }
-    default: {
-      apt::source{'dell':
-        location    => 'http://linux.dell.com/repo/community/debian',
-        release     => $::lsbdistcodename,
-        repos       => 'openmanage',
-        include_src => false,
-      }
-    }
+  #Install dell repository
+  apt::source{'dell':
+    location    => 'http://linux.dell.com/repo/community/ubuntu',
+    release     => $::lsbdistcodename,
+    repos       => 'openmanage',
+    include_src => false,
   }
 
   package { $omsa_pkg_name:
-    ensure => present,
-    before => Service['dataeng'],
+    ensure  => present,
+    before  => Service['dataeng'],
+    require => Apt::Source['dell'],
   }
 
 }

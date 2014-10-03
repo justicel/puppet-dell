@@ -1,9 +1,8 @@
 # nagios openmanage
 class dell::openmanage::nagios {
 
-  package { 'nagios-plugins-openmanage':
-    ensure => present,
-  }
+  #Install nagios package for openmanage
+  ensure_packages('nagios-plugins-openmanage', { ensure => present })
 
   @@nagios_service { "check_openmanage_${::fqdn}":
     check_command       => 'check_nrpe!check_openmanage',

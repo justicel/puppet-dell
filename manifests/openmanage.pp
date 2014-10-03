@@ -60,6 +60,10 @@ class dell::openmanage {
       include ::dell::openmanage::debian
     }
 
+    Ubuntu: {
+      include ::dell::openmanage::ubuntu
+    }
+
     default: {
       err("Unsupported operatingsystem: ${::operatingsystem}.")
     }

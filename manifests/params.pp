@@ -28,7 +28,14 @@ class dell::params {
       $omsa_url_args_specific = ''
     }
 
-    default:  { fail("Unsupported OS family: ${::osfamily}") }
+    'Ubuntu': {
+      $omsa_url_base          = 'http://linux.dell.com/repo/community/ubuntu/'
+      $smbios_package         = 'smbios-utils'
+      $omsa_url_args_indep    = ''
+      $omsa_url_args_specific = ''
+    }
+
+    default: { fail("Unsupported OS family: ${::osfamily}") }
   }
 
   $omsa_version = $::productname ? {
@@ -42,7 +49,7 @@ class dell::params {
     'PowerEdge R510'    => 'OMSA_6.4',
     'PowerEdge R610'    => 'OMSA_6.4',
     'PowerEdge T320'    => '',
-    'PowerEdge R620'    => 'OMSA_7.2',
+    'PowerEdge R620'    => 'OMSA_7.4',
     default             => 'OMSA_5.4',
   }
 

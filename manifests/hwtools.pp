@@ -15,8 +15,8 @@ class dell::hwtools {
   # bios & firmwares.
 
   case $::operatingsystem {
-    Debian: {
-      package { "${::dell::params::smbios_pkg}":
+    /Debian|Ubuntu/: {
+      package { $::dell::params::smbios_pkg:
         ensure => latest,
       }
     }
@@ -63,6 +63,7 @@ class dell::hwtools {
         ensure => absent,
       }
     }
+    default : { error("Unsupported operating system by Class['dell::hwtools']")
   }
 
 }

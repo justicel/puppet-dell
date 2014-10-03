@@ -27,7 +27,8 @@ class dell::collectd {
       settings => template('dell/collectd.conf'),
       require  => Class['dell::snmp'],
     }
-  } else {
+  }
+  else {
     file { '/var/lib/puppet/modules/collectd/plugins/dell.conf':
       content => template(
         'dell/collectd-header.conf',

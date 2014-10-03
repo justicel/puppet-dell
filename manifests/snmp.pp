@@ -29,6 +29,6 @@ smuxpeer .1.3.6.1.4.1.674.10892.1
         notify  => Service['dataeng'],
       }
     }
-    default: {}
+    default: { }
   }
 }
