@@ -11,15 +11,13 @@ class dell::openmanage::redhat {
 
   # this package contains the yum plugin which find the best yum repository
   # depending on the hardware.
-  package{'firmware-addon-dell':
-    ensure => latest,
-  }
+  ensure_packages('firmware-addon-dell', { ensure => latest })
 
-  package { ['srvadmin-base', 'srvadmin-storageservices']:
+  ensure_packages(['srvadmin-base', 'srvadmin-storageservices'], {
     ensure  => present,
     require => Yumrepo['dell-omsa-specific'],
     before  => Service['dataeng'],
-  }
+  })
 
   # Ce repo héberge openmanage, mais dépendent d'un plugin yum qui
   # va analyser le hardware et échoue si le système n'est pas supporté.

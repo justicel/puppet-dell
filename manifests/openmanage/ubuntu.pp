@@ -189,10 +189,10 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
     include_src => false,
   }
 
-  package { $omsa_pkg_name:
+  ensure_packages($omsa_pkg_name, {
     ensure  => present,
     before  => Service['dataeng'],
     require => Apt::Source['dell'],
-  }
+  })
 
 }

@@ -16,14 +16,12 @@ class dell::hwtools {
 
   case $::operatingsystem {
     /Debian|Ubuntu/: {
-      package { $::dell::params::smbios_pkg:
-        ensure => latest,
-      }
+      ensure_packages($::dell::params::smbios_pkg, { ensure => latest })
     }
     /RedHat|CentOS/: {
-      package{['libsmbios', 'smbios-utils', 'firmware-tools']:
+      ensure_packages(['libsmbios', 'smbios-utils', 'firmware-tools'], {
         ensure => latest,
-      }
+      })
 
       file {'/etc/pki/rpm-gpg/RPM-GPG-KEY-dell':
         ensure => present,

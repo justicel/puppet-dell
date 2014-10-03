@@ -207,9 +207,9 @@ SNnmxzdpR6pYJGbEDdFyZFe5xHRWSlrC3WTbzg==
     }
   }
 
-  package { $omsa_pkg_name:
+  ensure_packages($omsa_pkg_name, {
     ensure => present,
     before => Service['dataeng'],
-  }
-
+  })
+    
 }
